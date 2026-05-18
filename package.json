@@ -1,0 +1,10 @@
+{
+  "name": "cash-flow",
+  "version": "1.0.0",
+  "description": "Cash Flow Tracker",
+  "scripts": {
+    "dev": "npx serve . -p 3000"
+  },
+  "author": "",
+  "license": "ISC"
+}
