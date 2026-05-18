@@ -7,6 +7,7 @@ let exchangeRate = 1; // Multiplier from USD to target currency
 // ====== DOM ELEMENTS ======
 const salaryForm = document.getElementById('salaryForm');
 const salaryInput = document.getElementById('salaryInput');
+const resetSalaryBtn = document.getElementById('resetSalaryBtn');
 const expenseForm = document.getElementById('expenseForm');
 const expenseNameInput = document.getElementById('expenseNameInput');
 const expenseAmountInput = document.getElementById('expenseAmountInput');
@@ -39,6 +40,7 @@ function init() {
 // ====== EVENT LISTENERS ======
 function setupEventListeners() {
     salaryForm.addEventListener('submit', handleSalarySubmit);
+    if (resetSalaryBtn) resetSalaryBtn.addEventListener('click', handleSalaryReset);
     expenseForm.addEventListener('submit', handleExpenseSubmit);
     expenseList.addEventListener('click', handleExpenseActions);
     toggleCurrencyBtn.addEventListener('click', toggleCurrency);
@@ -46,6 +48,12 @@ function setupEventListeners() {
 }
 
 // ====== HANDLERS ======
+function handleSalaryReset() {
+    totalSalary = 0;
+    saveData();
+    updateUI();
+}
+
 function handleSalarySubmit(e) {
     e.preventDefault();
     const amount = parseFloat(salaryInput.value);
