@@ -254,17 +254,27 @@ function generatePDF() {
         style: 'currency',
         currency: currentCurrency
     });
+
+    // Helper to avoid jsPDF garbled text issue with non-ASCII characters
+    const sanitizeText = (text) => {
+        return String(text)
+            .replace(/₹/g, 'INR ')
+            .replace(/[\u202F\u00A0]/g, ' ')
+            .replace(/[^\x00-\x7F]/g, '');
+    };
+    
+    const formatCurrency = (val) => sanitizeText(formatter.format(val));
     
     const totalExp = expenses.reduce((acc, curr) => acc + curr.amount, 0);
     const balance = totalSalary - totalExp;
     
-    doc.text(`Total Salary: ${formatter.format(totalSalary * exchangeRate)}`, 14, 32);
-    doc.text(`Total Expenses: ${formatter.format(totalExp * exchangeRate)}`, 14, 40);
-    doc.text(`Remaining Balance: ${formatter.format(balance * exchangeRate)}`, 14, 48);
+    doc.text(`Total Salary: ${formatCurrency(totalSalary * exchangeRate)}`, 14, 32);
+    doc.text(`Total Expenses: ${formatCurrency(totalExp * exchangeRate)}`, 14, 40);
+    doc.text(`Remaining Balance: ${formatCurrency(balance * exchangeRate)}`, 14, 48);
     
     const tableData = expenses.map(exp => [
-        exp.name, 
-        formatter.format(exp.amount * exchangeRate)
+        sanitizeText(exp.name), 
+        formatCurrency(exp.amount * exchangeRate)
     ]);
     
     doc.autoTable({
