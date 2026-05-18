@@ -2,6 +2,8 @@
 
 A responsive, single-page web application designed to track personal finances. It allows users to manage their income and expenses, visualizing the data in real-time through dynamic charts. Built purely with Vanilla Web Technologies to demonstrate proficiency in DOM manipulation, state management, and API integrations without the use of heavy frameworks.
 
+Landing Page - https://prodeskittm2.vercel.app/
+
 
 ## 🚀 Features
 
